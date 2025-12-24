@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Lucas Massako - Développeur Full-Stack</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+
+    <header>
+        <div class="logo">Lucas<span>.Massako</span></div>
+        <nav>
+            <ul>
+                <li><a href="#about">À Propos</a></li>
+                <li><a href="#skills">Compétences</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Développeur <br><span>& Data Engineer</span></h1>
+        <p>Étudiant en Bachelor. Je conçois des solutions full-stack robustes et j'analyse vos données pour créer de la valeur.</p>
+        <div>
+            <a href="#projects" class="btn">Voir mes projets</a>
+            <a href="https://github.com/Lucas-Massako" class="btn btn-outline" target="_blank">GitHub</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">À Propos</h2>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center; color: var(--secondary);">
+            <p>
+                Passionné par le développement depuis mon BTS SIO, je poursuis actuellement un <strong>Bachelor Conception Web et Mobile</strong> à l'ESTIAM.
+            </p>
+            <br>
+            <p>
+                Fort d'une expérience en <strong>administration système</strong> chez SIAAP et de multiples projets web, je cherche à mettre ma polyvalence (Code + Infra + Data) au service d'une entreprise innovante en <strong>alternance (4J/1J)</strong>.
+            </p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title">Stack Technique</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>Frontend & Web</h3>
+                <ul class="skill-list">
+                    <li>HTML5 / CSS3</li>
+                    <li>JavaScript (ES6+)</li>
+                    <li>React (En apprentissage)</li>
+                    <li>WordPress / CMS</li>
+                </ul>
+            </div>
+            <div class="skill-card">
+                <h3>Backend & Data</h3>
+                <ul class="skill-list">
+                    <li>PHP / SQL</li>
+                    <li>Node.js / Express</li>
+                    <li>API REST</li>
+                    <li>Power BI</li>
+                </ul>
+            </div>
+            <div class="skill-card">
+                <h3>Outils & DevOps</h3>
+                <ul class="skill-list">
+                    <li>Git / GitHub</li>
+                    <li>Linux / Bash</li>
+                    <li>Docker (Notions)</li>
+                    <li>VS Code</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Projets & Réalisations</h2>
+        <div class="projects-grid">
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-type">Projet Web / API</span>
+                </div>
+                <div class="project-body">
+                    <h3>Veille Technologique</h3>
+                    <p>Développement d'un lecteur de flux RSS dynamique. L'application permet de s'abonner et de visualiser des flux d'actualités en temps réel via une interface web épurée.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">XML/RSS</span>
+                        <span class="tech-tag">GitHub Pages</span>
+                    </div>
+                </div>
+                <div class="project-links">
+                    <a href="https://lucas-massako.github.io/V.RSS/" target="_blank">Voir la Démo</a>
+                    <div class="separator"></div>
+                    <a href="https://github.com/Lucas-Massako/V.RSS" target="_blank">Code Source</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-type">Projet BTS</span>
+                </div>
+                <div class="project-body">
+                    <h3>Application de Gestion</h3>
+                    <p>Plateforme web développée durant mon BTS pour la gestion de données métiers. Intégration d'une base de données relationnelle et gestion des utilisateurs.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">Hébergement Web</span>
+                    </div>
+                </div>
+                <div class="project-links">
+                    <a href="https://massako.alwaysdata.net/Projet/" target="_blank">Accéder au Site</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-type">Ingénierie & IoT</span>
+                </div>
+                <div class="project-body">
+                    <h3>Navigation Autonome mBot2</h3>
+                    <p>Développement en équipe (ESTIAM) d'un programme Python pour robot mBot2. Implémentation d'algorithmes de suivi de ligne proportionnel (PID), évitement d'obstacles par ultrasons et logique conditionnelle basée sur la détection de couleurs (Rouge/Vert/Cyan).</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Algorithmique PID</span>
+                        <span class="tech-tag">Capteurs IoT</span>
+                    </div>
+                </div>
+                <div class="project-links">
+                    <a href="#" target="_blank">Voir le PPT </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-type">Projet Personnel</span>
+                </div>
+                <div class="project-body">
+                    <h3>Portfolio Professionnel</h3>
+                    <p>Conception complète de mon site vitrine. Architecture sémantique, design responsive (Dark Mode) et optimisation pour le référencement (SEO).</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">HTML5/CSS3</span>
+                        <span class="tech-tag">UI/UX Design</span>
+                    </div>
+                </div>
+                <div class="project-links">
+                    <a href="https://lucas-webdev.fr" target="_blank">Voir le site</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" style="background: linear-gradient(to top, #020617, #0f172a);">
+        <h2 class="section-title">Restons en Contact</h2>
+        <div style="text-align: center;">
+            <p style="margin-bottom: 2rem; color: var(--secondary);">
+                À la recherche d'une alternance ou d'une collaboration ?<br>N'hésitez pas à me contacter.
+            </p>
+          
+            <section id="contact" style="background: linear-gradient(to top, #020617, #0f172a);">
+        
+        
+        <div style="max-width: 600px; margin: 0 auto;">
+            
+            <form id="contactForm" style="background: var(--card-bg); padding: 2rem; border-radius: 15px; border: 1px solid #334155;">
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">Vôtre Nom</label>
+                    <input type="text" name="name" required style="width: 100%; padding: 0.8rem; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 5px;">
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">Vôtre Email</label>
+                    <input type="email" name="email" required style="width: 100%; padding: 0.8rem; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 5px;">
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">Redigez vôtre Message</label>
+                    <textarea name="message" rows="4" required style="width: 100%; padding: 0.8rem; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 5px;"></textarea>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%; cursor: pointer;">Envoyer le message</button>
+                <p id="formStatus" style="margin-top: 1rem; text-align: center; font-size: 0.9rem;"></p>
+                  <a href="mailto:lucasmassako@gmail.com" class="btn">Rédiger directement un email</a>
+            </form>
+            
+
+            <div style="margin-top: 3rem; display: flex; justify-content: center; gap: 2rem; font-size: 1.5rem;">
+                <a href="https://github.com/Lucas-Massako" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://www.linkedin.com/in/lucas-massako" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Lucas Massako.</p>
+    </footer>
+
+</body>
+ <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Empêche le rechargement de la page
+            
+            const formData = new FormData(this);
+            const statusText = document.getElementById('formStatus');
+            const btn = this.querySelector('button');
+
+            btn.textContent = "Envoi en cours...";
+            btn.disabled = true;
+
+            fetch('send_contact.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    statusText.textContent = "✅ Message reçu sur mon Discord ! Merci.";
+                    statusText.style.color = "#4ade80";
+                    this.reset(); // Vide le formulaire
+                } else {
+                    statusText.textContent = "❌ Erreur lors de l'envoi.";
+                    statusText.style.color = "#f87171";
+                }
+                btn.textContent = "Envoyer le message";
+                btn.disabled = false;
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                statusText.textContent = "❌ Erreur technique.";
+                btn.textContent = "Envoyer le message";
+                btn.disabled = false;
+            });
+        });
+    </script>
+</html>
