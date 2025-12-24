@@ -181,7 +181,7 @@
                 
                 <div style="margin-bottom: 1.5rem;">
                     <label style="display: block; margin-bottom: 0.5rem;">Redigez vôtre Message</label>
-                    <textarea name="message" rows="4" required style="width: 100%; padding: 0.8rem; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 5px;"></textarea>
+                   <textarea name="message" rows="4" required style="width: 100%; padding: 0.8rem; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 5px;"></textarea>
                 </div>
 
                 <button type="submit" class="btn" style="width: 100%; cursor: pointer;">Envoyer le message</button>
@@ -213,7 +213,7 @@
             btn.textContent = "Envoi en cours...";
             btn.disabled = true;
 
-            fetch('send_contact.php', {
+            fetch('contact.php', {
                 method: 'POST',
                 body: formData
             })
