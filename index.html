@@ -11,15 +11,7 @@
 
     <header>
         <div class="logo">Lucas<span>.Massako</span></div>
-        <nav>
-            <ul>
-                <li><a href="#about">À Propos</a></li>
-                <li><a href="#skills">Compétences</a></li>
-                <li><a href="#projects">Projets</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <nav>
+       <nav>
         <ul>
             <li><a href="#about">À Propos</a></li>
             <li><a href="#skills">Compétences</a></li>
@@ -199,6 +191,7 @@
 </script>
 
 <script>
+    // Filtrage des projets
     document.addEventListener("DOMContentLoaded", () => {
         const container = document.getElementById('projects-container');
         const filterBtns = document.querySelectorAll('.filter-btn');
@@ -272,6 +265,7 @@
     });
 </script>
 <script>
+    // script pour le mode sombre / clair
 // --- GESTION DU MODE SOMBRE / CLAIR ---
     const themeBtn = document.getElementById('theme-toggle');
     const body = document.body;
@@ -296,8 +290,9 @@
         }
     });
 </script> 
-</body>
+
  <script>
+    // script pour le formulaire de contact
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Empêche le rechargement de la page
             
@@ -333,4 +328,5 @@
             });
         });
     </script>
+    </body>
 </html>
