@@ -1,0 +1,43 @@
+[
+    {
+        "title": "Veille Technologique",
+        "type": "Projet Web / API",
+        "category": "web",
+        "description": "Développement d'un lecteur de flux RSS dynamique. L'application permet de s'abonner et de visualiser des flux d'actualités en temps réel via une interface web épurée.",
+        "tags": ["JavaScript", "XML/RSS", "GitHub Pages"],
+        "links": [
+            { "text": "Voir la Démo", "url": "https://lucas-massako.github.io/V.RSS/" },
+            { "text": "Code Source", "url": "https://github.com/Lucas-Massako/V.RSS" }
+        ]
+    },
+    {
+        "title": "Application de Gestion",
+        "type": "Projet BTS",
+        "category": "web",
+        "description": "Plateforme web développée durant mon BTS pour la gestion de données métiers. Intégration d'une base de données relationnelle et gestion des utilisateurs.",
+        "tags": ["PHP", "MySQL", "Hébergement Web"],
+        "links": [
+            { "text": "Accéder au Site", "url": "https://massako.alwaysdata.net/Projet/" }
+        ]
+    },
+    {
+        "title": "Navigation Autonome mBot2",
+        "type": "Ingénierie & IoT",
+        "category": "python",
+        "description": "Développement en équipe (ESTIAM) d'un programme Python pour robot mBot2. Implémentation d'algorithmes de suivi de ligne proportionnel (PID) et évitement d'obstacles.",
+        "tags": ["Python", "Algorithmique PID", "Capteurs IoT"],
+        "links": [
+            { "text": "Voir le PPT", "url": "#" }
+        ]
+    },
+    {
+        "title": "Portfolio Professionnel",
+        "type": "Projet Personnel",
+        "category": "web",
+        "description": "Conception complète de mon site vitrine. Architecture sémantique, design responsive (Dark Mode) et optimisation pour le référencement (SEO).",
+        "tags": ["HTML5/CSS3", "UI/UX Design"],
+        "links": [
+            { "text": "Voir le site", "url": "https://lucas-webdev.fr" }
+        ]
+    }
+]

@@ -19,6 +19,20 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
+        <nav>
+        <ul>
+            <li><a href="#about">À Propos</a></li>
+            <li><a href="#skills">Compétences</a></li>
+            <li><a href="#projects">Projets</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <button id="theme-toggle" style="background:none; border:none; color:var(--light); font-size:1.2rem; cursor:pointer; margin-left:1.5rem;">
+        ☀️
+    </button>
+    
+</header>
     </header>
 
     <section class="hero">
@@ -76,120 +90,47 @@
         </div>
     </section>
 
-    <section id="projects">
+   <section id="projects">
         <h2 class="section-title">Projets & Réalisations</h2>
-        <div class="projects-grid">
 
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-type">Projet Web / API</span>
-                </div>
-                <div class="project-body">
-                    <h3>Veille Technologique</h3>
-                    <p>Développement d'un lecteur de flux RSS dynamique. L'application permet de s'abonner et de visualiser des flux d'actualités en temps réel via une interface web épurée.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">XML/RSS</span>
-                        <span class="tech-tag">GitHub Pages</span>
-                    </div>
-                </div>
-                <div class="project-links">
-                    <a href="https://lucas-massako.github.io/V.RSS/" target="_blank">Voir la Démo</a>
-                    <div class="separator"></div>
-                    <a href="https://github.com/Lucas-Massako/V.RSS" target="_blank">Code Source</a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-type">Projet BTS</span>
-                </div>
-                <div class="project-body">
-                    <h3>Application de Gestion</h3>
-                    <p>Plateforme web développée durant mon BTS pour la gestion de données métiers. Intégration d'une base de données relationnelle et gestion des utilisateurs.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">PHP</span>
-                        <span class="tech-tag">MySQL</span>
-                        <span class="tech-tag">Hébergement Web</span>
-                    </div>
-                </div>
-                <div class="project-links">
-                    <a href="https://massako.alwaysdata.net/Projet/" target="_blank">Accéder au Site</a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-type">Ingénierie & IoT</span>
-                </div>
-                <div class="project-body">
-                    <h3>Navigation Autonome mBot2</h3>
-                    <p>Développement en équipe (ESTIAM) d'un programme Python pour robot mBot2. Implémentation d'algorithmes de suivi de ligne proportionnel (PID), évitement d'obstacles par ultrasons et logique conditionnelle basée sur la détection de couleurs (Rouge/Vert/Cyan).</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Algorithmique PID</span>
-                        <span class="tech-tag">Capteurs IoT</span>
-                    </div>
-                </div>
-                <div class="project-links">
-                    <a href="#" target="_blank">Voir le PPT </a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-type">Projet Personnel</span>
-                </div>
-                <div class="project-body">
-                    <h3>Portfolio Professionnel</h3>
-                    <p>Conception complète de mon site vitrine. Architecture sémantique, design responsive (Dark Mode) et optimisation pour le référencement (SEO).</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">HTML5/CSS3</span>
-                        <span class="tech-tag">UI/UX Design</span>
-                    </div>
-                </div>
-                <div class="project-links">
-                    <a href="https://lucas-webdev.fr" target="_blank">Voir le site</a>
-                </div>
-            </div>
-
+        <div class="filter-container" style="text-align: center; margin-bottom: 2rem;">
+            <button class="filter-btn active" data-filter="all">Tous</button>
+            <button class="filter-btn" data-filter="web">Web & API</button>
+            <button class="filter-btn" data-filter="python">Data & Python</button>
         </div>
+        <div class="projects-grid" id="projects-container">
+            </div>
     </section>
-
-    <section id="contact" style="background: linear-gradient(to top, #020617, #0f172a);">
+   <section id="contact" style="background: linear-gradient(to top, #020617, #0f172a);">
         <h2 class="section-title">Restons en Contact</h2>
+        
         <div style="text-align: center;">
             <p style="margin-bottom: 2rem; color: var(--secondary);">
                 À la recherche d'une alternance ou d'une collaboration ?<br>N'hésitez pas à me contacter.
             </p>
-          
-            <section id="contact" style="background: linear-gradient(to top, #020617, #0f172a);">
-        
-        
-        <div style="max-width: 600px; margin: 0 auto;">
+        </div> <div style="max-width: 600px; margin: 0 auto;">
             
             <form id="contactForm" style="background: var(--card-bg); padding: 2rem; border-radius: 15px; border: 1px solid #334155;">
                 <div style="margin-bottom: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">Vôtre Nom</label>
+                    <label style="display: block; margin-bottom: 0.5rem;">Votre Nom</label>
                     <input type="text" name="name" required style="width: 100%; padding: 0.8rem; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 5px;">
                 </div>
                 
                 <div style="margin-bottom: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">Vôtre Email</label>
+                    <label style="display: block; margin-bottom: 0.5rem;">Votre Email</label>
                     <input type="email" name="email" required style="width: 100%; padding: 0.8rem; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 5px;">
                 </div>
                 
                 <div style="margin-bottom: 1.5rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">Redigez vôtre Message</label>
+                    <label style="display: block; margin-bottom: 0.5rem;">Rédigez votre message</label>
                    <textarea name="message" rows="4" required style="width: 100%; padding: 0.8rem; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 5px;"></textarea>
                 </div>
 
                 <button type="submit" class="btn" style="width: 100%; cursor: pointer;">Envoyer le message</button>
                 <p id="formStatus" style="margin-top: 1rem; text-align: center; font-size: 0.9rem;"></p>
-                  <a href="mailto:lucasmassako@gmail.com" class="btn">Rédiger directement un email</a>
+                  <a href="mailto:lucasmassako@gmail.com" class="btn" style="display:block; text-align:center; margin-top:10px;">Rédiger directement un email</a>
             </form>
             
-
             <div style="margin-top: 3rem; display: flex; justify-content: center; gap: 2rem; font-size: 1.5rem;">
                 <a href="https://github.com/Lucas-Massako" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                 <a href="https://www.linkedin.com/in/lucas-massako" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
@@ -200,7 +141,161 @@
     <footer>
         <p>&copy; 2025 Lucas Massako.</p>
     </footer>
+<script>
+    // Chargement des projets depuis le fichier JSON
+    document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById('projects-container');
 
+        fetch('project.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erreur de chargement du JSON");
+                }
+                return response.json();
+            })
+            .then(projects => {
+                // Pour chaque projet dans le JSON, on crée une carte HTML
+                projects.forEach(project => {
+                    // Création dynamique des tags (badges technologies)
+                    const tagsHtml = project.tags.map(tag => 
+                        `<span class="tech-tag">${tag}</span>`
+                    ).join('');
+
+                    // Création dynamique des liens
+                    const linksHtml = project.links.map((link, index) => {
+                        let html = `<a href="${link.url}" target="_blank">${link.text}</a>`;
+                        // Ajoute un séparateur si ce n'est pas le dernier lien
+                        if (index < project.links.length - 1) {
+                            html += `<div class="separator"></div>`;
+                        }
+                        return html;
+                    }).join('');
+
+                    // Structure HTML de la carte (identique à votre ancien code)
+                    const card = `
+                        <div class="project-card" data-category="${project.category}">
+                            <div class="project-header">
+                                <span class="project-type">${project.type}</span>
+                            </div>
+                            <div class="project-body">
+                                <h3>${project.title}</h3>
+                                <p>${project.description}</p>
+                                <div class="tech-stack">
+                                    ${tagsHtml}
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                ${linksHtml}
+                            </div>
+                        </div>
+                    `;
+
+                    // Injection dans le conteneur
+                    container.innerHTML += card;
+                });
+            })
+            .catch(error => console.error('Erreur:', error));
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById('projects-container');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        let allProjects = []; // On garde les projets en mémoire
+
+        // 1. Fonction pour afficher les projets
+        const renderProjects = (projects) => {
+            container.innerHTML = ''; // On vide d'abord la grille
+            
+            // Si aucun projet ne correspond au filtre
+            if(projects.length === 0) {
+                container.innerHTML = '<p style="text-align:center; width:100%;">Aucun projet dans cette catégorie pour le moment.</p>';
+                return;
+            }
+
+            projects.forEach(project => {
+                const tagsHtml = project.tags.map(tag => 
+                    `<span class="tech-tag">${tag}</span>`
+                ).join('');
+
+                const linksHtml = project.links.map((link, index) => {
+                    let html = `<a href="${link.url}" target="_blank">${link.text}</a>`;
+                    if (index < project.links.length - 1) html += `<div class="separator"></div>`;
+                    return html;
+                }).join('');
+
+                const card = `
+                    <div class="project-card fade-in">
+                        <div class="project-header">
+                            <span class="project-type">${project.type}</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>${project.title}</h3>
+                            <p>${project.description}</p>
+                            <div class="tech-stack">${tagsHtml}</div>
+                        </div>
+                        <div class="project-links">${linksHtml}</div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        };
+
+        // 2. Chargement initial
+        fetch('projects.json')
+            .then(res => res.json())
+            .then(data => {
+                allProjects = data; // On sauvegarde les données
+                renderProjects(allProjects); // On affiche tout au début
+            })
+            .catch(err => console.error("Erreur JSON:", err));
+
+        // 3. Gestion du click sur les filtres
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Gestion visuelle du bouton actif
+                document.querySelector('.filter-btn.active').classList.remove('active');
+                btn.classList.add('active');
+
+                // Filtrage des données
+                const filterValue = btn.getAttribute('data-filter');
+                
+                if (filterValue === 'all') {
+                    renderProjects(allProjects);
+                } else {
+                    const filtered = allProjects.filter(p => p.category === filterValue);
+                    renderProjects(filtered);
+                }
+            });
+        });
+    });
+</script>
+<script>
+// --- GESTION DU MODE SOMBRE / CLAIR ---
+    const themeBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // 1. Vérifier si l'utilisateur a déjà choisi un thème
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        body.classList.add('light-mode');
+        themeBtn.textContent = '🌙'; // Changer l'icône
+    }
+
+    // 2. Au clic sur le bouton
+    themeBtn.addEventListener('click', () => {
+        body.classList.toggle('light-mode');
+        
+        if (body.classList.contains('light-mode')) {
+            themeBtn.textContent = '🌙';
+            localStorage.setItem('theme', 'light'); // Sauvegarder la préférence
+        } else {
+            themeBtn.textContent = '☀️';
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+</script> 
 </body>
  <script>
         document.getElementById('contactForm').addEventListener('submit', function(e) {
