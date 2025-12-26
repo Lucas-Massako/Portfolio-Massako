@@ -60,7 +60,7 @@
         }
         /* --- ABOUT --- */
          .about {max-width: 800px; margin: 0 auto; text-align: center; color: var(--secondary);}
-         
+
         /* --- SKILLS --- */
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
         .skill-card {
@@ -174,3 +174,20 @@ body.light-mode .btn-outline {
     border-color: var(--primary);
     color: var(--primary);
 }
+
+/* --- ANIMATIONS SCROLL REVEAL --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px); /* Décalage vers le bas */
+    transition: all 0.8s ease-out; /* Durée et fluidité */
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0); /* Remet à la position normale */
+}
+
+/* Optionnel : un délai pour les éléments qui apparaissent en groupe */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }

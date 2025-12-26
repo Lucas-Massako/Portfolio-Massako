@@ -2,9 +2,12 @@
 // send_contact.php
 
 // 1. Configuration
-// COLLEZ VOTRE URL DISCORD ICI (Gardez les guillemets)
-$webhookurl = "https://discord.com/api/webhooks/1450213180012888229/MAJEYyLPOSQrkeNughE9xEeRVFtqcRaDddCsH5N5ArwIRXmtmw6Q2TQCST5CHWgG11LR"; 
+require_once 'config.php';
 
+// Si le fichier config n'existe pas (ex: sur GitHub), on met une erreur ou une valeur vide
+if (!isset($webhookurl)) {
+    die(json_encode(["status" => "error", "message" => "Erreur de configuration serveur"]));
+}
 // Vérifier si c'est bien une requête POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
