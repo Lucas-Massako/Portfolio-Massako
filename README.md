@@ -1,1 +1,8 @@
-Portfolio ,php , js , html , json 
+Portfolio : 
+stack : 
+- php
+- js 
+- html 
+- css
+- json
+ 

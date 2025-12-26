@@ -37,7 +37,7 @@
         "description": "Conception complète de mon site vitrine. Architecture sémantique, design responsive (Dark Mode) et optimisation pour le référencement (SEO).",
         "tags": ["HTML5/CSS3", "UI/UX Design"],
         "links": [
-            { "text": "Voir le site", "url": "https://lucas-webdev.fr" }
+            { "text": "Voir le code", "url": "https://github.com/Lucas-Massako/Portfolio-Massako" }
         ]
     }
 ]
