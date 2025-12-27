@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /*  2. CHARGEMENT ET FILTRAGE DES PROJETS */
-    
+
     const container = document.getElementById('projects-container');
     const filterBtns = document.querySelectorAll('.filter-btn');
     let allProjects = []; // Variable pour stocker les projets
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Création de la carte HTML
             const card = `
-                <div class="project-card fade-in">
+                <div class="project-card reveal visible">
                     <div class="project-header">
                         <span class="project-type">${project.type}</span>
                     </div>
@@ -141,6 +141,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.textContent = "Envoyer le message";
                 btn.disabled = false;
             });
+     
         });
+        
     }
+/* ---------------------------------------------------------
+       4. ANIMATIONS AU SCROLL (Intersection Observer)
+    --------------------------------------------------------- */
+    const observerOptions = {
+        threshold: 0.1 // L'animation se lance quand 10% de l'élément est visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Optionnel : on arrête d'observer une fois apparu (pour ne pas rejouer l'animation)
+                observer.unobserve(entry.target); 
+            }
+        });
+    }, observerOptions);
+
+    // On cible tous les éléments qui ont la classe "reveal"
+    const revealElements = document.querySelectorAll('.reveal');
+    revealElements.forEach(el => observer.observe(el));
+    
 });
