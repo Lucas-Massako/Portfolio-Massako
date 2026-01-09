@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio | Lucas Massako - Développeur Full-Stack</title>
     <link rel="stylesheet" href="style.css">
-    
+    <!-- PyScript -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2023.05.1/pyscript.css" />
+    <script defer src="https://pyscript.net/releases/2023.05.1/pyscript.js"></script>
 </head>
 <body>
 
@@ -64,7 +66,7 @@
                 <h3>Frontend & Web</h3>
                 <ul class="skill-list">
                     <li>HTML5 / CSS3</li>
-                    <li>JavaScript (ES6+)</li>
+                    <li>JavaScript</li>
                     <li>React (En apprentissage)</li>
                     <li>WordPress / CMS</li>
                 </ul>
@@ -137,6 +139,253 @@
             </div>
         </div>
     </section>
+
+   
+<div id="python-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        
+        <h2 style="color: var(--accent); margin-bottom: 1rem;">Générateur de Mots de Passe</h2>
+        <p style="margin-bottom: 1rem;">Cette micro-application est codée en <strong>Python</strong> et s'exécute dans votre navigateur !</p>
+
+        <div style="background: var(--dark); padding: 1rem; border-radius: 10px; border: 1px solid #334155;">
+            <label>Longueur : <span id="len-val">12</span></label>
+            <input type="range" id="length-slider" min="8" max="32" value="12" style="width: 100%; margin: 10px 0;">
+            
+            <button id="gen-btn" py-click="generate_password()" class="btn" style="width: 100%; margin-top: 10px;">
+                Générer (Python)
+            </button>
+
+            <div id="password-output" style="margin-top: 15px; font-family: monospace; font-size: 1.2rem; color: #4ade80; min-height: 30px;">
+                ...
+            </div>
+        </div>
+
+        <py-script>
+import random
+import string
+from js import document
+
+def generate_password(*args):
+    # Récupérer la valeur du slider via le DOM HTML
+    length = int(document.getElementById("length-slider").value)
+    
+    # Logique Python pure
+    chars = string.ascii_letters + string.digits + "!@#$%^&*"
+    password = "".join(random.choice(chars) for _ in range(length))
+    
+    # Afficher le résultat dans la div HTML
+    output_div = document.getElementById("password-output")
+    output_div.innerText = password
+
+# Petit bonus : mettre à jour le label quand on bouge le slider
+from pyodide.ffi import create_proxy
+
+def update_label(event):
+    document.getElementById("len-val").innerText = event.target.value
+
+# Attacher l'événement (comme addEventListener en JS)
+slider = document.getElementById("length-slider")
+slider.addEventListener("input", create_proxy(update_label))
+        </py-script>
+    </div>
+</div>
+ <div style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">
+    <button id="breakout-btn" class="btn" style="box-shadow: 0 0 15px rgba(59,130,246,0.5);">
+        🐍 Demo Python
+    </button>
+</div>
+<div id="breakout-modal" class="modal">
+    <div class="modal-content" style="max-width: 600px;">   
+
+<span class="close-modal">&times;</span>
+
+<h2 style="color: var(--accent); margin-bottom: 0.5rem; text-align: center;">🧱 Casse-Briques Python</h2>
+<p style="text-align: center; margin-bottom: 1rem; font-size: 0.9rem; color: var(--secondary);">
+    Utilisez les flèches ⬅️ et ➡️ de votre clavier pour jouer.
+</p>
+
+<div style="display: flex; justify-content: center;">
+    <canvas id="myCanvas" width="480" height="320" style="background: #0f172a; border: 2px solid var(--primary); border-radius: 8px; box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);"></canvas>
+</div>
+
+<div style="text-align: center; margin-top: 1rem;">
+    <button id="btn-start" class="btn" style="padding: 0.5rem 2rem;">Lancer la partie</button>
+    <p id="game-status" style="margin-top: 10px; color: #4ade80; height: 20px;"></p>
+</div>
+
+<py-script>
+import asyncio
+import math
+from js import document, window
+from pyodide.ffi import create_proxy
+
+# --- Configuration du Jeu ---
+canvas = document.getElementById("myCanvas")
+ctx = canvas.getContext("2d")
+
+# Variables globales
+ballRadius = 10
+x = canvas.width / 2
+y = canvas.height - 30
+dx = 2
+dy = -2
+paddleHeight = 10
+paddleWidth = 75
+paddleX = (canvas.width - paddleWidth) / 2
+rightPressed = False
+leftPressed = False
+game_running = False
+
+# Briques
+brickRowCount = 3
+brickColumnCount = 5
+brickWidth = 75
+brickHeight = 20
+brickPadding = 10
+brickOffsetTop = 30
+brickOffsetLeft = 30
+bricks = []
+
+def init_bricks():
+    global bricks
+    bricks = []
+    for c in range(brickColumnCount):
+        col = []
+        for r in range(brickRowCount):
+            col.append({"x": 0, "y": 0, "status": 1})
+        bricks.append(col)
+
+# --- Gestion des Contrôles ---
+def keyDownHandler(e):
+    global rightPressed, leftPressed
+    if e.key == "Right" or e.key == "ArrowRight":
+        rightPressed = True
+    elif e.key == "Left" or e.key == "ArrowLeft":
+        leftPressed = True
+
+def keyUpHandler(e):
+    global rightPressed, leftPressed
+    if e.key == "Right" or e.key == "ArrowRight":
+        rightPressed = False
+    elif e.key == "Left" or e.key == "ArrowLeft":
+        leftPressed = False
+
+# Attacher les événements clavier
+document.addEventListener("keydown", create_proxy(keyDownHandler))
+document.addEventListener("keyup", create_proxy(keyUpHandler))
+
+# --- Fonctions de Dessin ---
+def drawBall():
+    ctx.beginPath()
+    ctx.arc(x, y, ballRadius, 0, math.pi * 2)
+    ctx.fillStyle = "#22d3ee" # Couleur Cyan (var --accent)
+    ctx.fill()
+    ctx.closePath()
+
+def drawPaddle():
+    ctx.beginPath()
+    ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight)
+    ctx.fillStyle = "#3b82f6" # Couleur Bleu (var --primary)
+    ctx.fill()
+    ctx.closePath()
+
+def drawBricks():
+    for c in range(brickColumnCount):
+        for r in range(brickRowCount):
+            if bricks[c][r]["status"] == 1:
+                brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft
+                brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop
+                bricks[c][r]["x"] = brickX
+                bricks[c][r]["y"] = brickY
+                ctx.beginPath()
+                ctx.rect(brickX, brickY, brickWidth, brickHeight)
+                ctx.fillStyle = "#f8fafc" # Couleur blanche
+                ctx.fill()
+                ctx.closePath()
+
+def collisionDetection():
+    global dy
+    for c in range(brickColumnCount):
+        for r in range(brickRowCount):
+            b = bricks[c][r]
+            if b["status"] == 1:
+                if x > b["x"] and x < b["x"] + brickWidth and y > b["y"] and y < b["y"] + brickHeight:
+                    dy = -dy
+                    b["status"] = 0
+
+# --- Boucle Principale ---
+async def draw():
+    global x, y, dx, dy, paddleX, game_running
+    
+    if not game_running:
+        return
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    drawBricks()
+    drawBall()
+    drawPaddle()
+    collisionDetection()
+
+    # Rebond murs gauche/droite
+    if x + dx > canvas.width - ballRadius or x + dx < ballRadius:
+        dx = -dx
+    
+    # Rebond haut
+    if y + dy < ballRadius:
+        dy = -dy
+    # Rebond bas (Game Over ou Paddle)
+    elif y + dy > canvas.height - ballRadius:
+        if x > paddleX and x < paddleX + paddleWidth:
+            dy = -dy
+            # Accélération légère
+            if dy > 0: dy += 0.2 
+            else: dy -= 0.2
+        else:
+            document.getElementById("game-status").innerText = "Game Over ! ❌"
+            game_running = False
+            document.getElementById("btn-start").disabled = False
+            return
+
+    # Mouvement Paddle
+    if rightPressed and paddleX < canvas.width - paddleWidth:
+        paddleX += 5 # Vitesse paddle
+    elif leftPressed and paddleX > 0:
+        paddleX -= 5
+
+    x += dx
+    y += dy
+    
+    # Boucle infinie fluide (environ 60 FPS)
+    await asyncio.sleep(0.015)
+    await draw()
+
+# --- Lancement ---
+def start_game(*args):
+    global game_running, x, y, dx, dy, paddleX
+    if game_running: return
+    
+    # Reset variables
+    init_bricks()
+    x = canvas.width / 2
+    y = canvas.height - 30
+    dx = 2
+    dy = -2
+    paddleX = (canvas.width - paddleWidth) / 2
+    
+    game_running = True
+    document.getElementById("btn-start").disabled = True
+    document.getElementById("game-status").innerText = "Partie en cours..."
+    
+    # Lancer la boucle asynchrone
+    asyncio.ensure_future(draw())
+
+# Initialisation
+init_bricks()
+# Attacher le bouton Start
+document.getElementById("btn-start").addEventListener("click", create_proxy(start_game))
+</py-script>
+
 
     <footer>
         <p>&copy; 2025 Lucas Massako.</p>

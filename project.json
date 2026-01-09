@@ -30,6 +30,17 @@
             { "text": "Voir le PPT", "url": "#" }
         ]
     },
+   {
+        "title": "Générateur de MDP (PyScript)",
+        "type": "Projet Python / WebAssembly",
+        "category": "python",
+        "description": "Application Python exécutée directement dans le navigateur (côté client) grâce à PyScript. Génération sécurisée et instantanée.",
+        "tags": ["Python", "PyScript", "HTML5"],
+        "links": [
+            { "text": "🚀 Lancer la Démo", "url": "#python-demo" },
+            { "text": "Voir le code", "url": "https://github.com/Lucas-Massako" }
+        ]
+    },
     {
         "title": "Portfolio Professionnel",
         "type": "Projet Personnel",

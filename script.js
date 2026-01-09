@@ -25,15 +25,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    /*  2. CHARGEMENT ET FILTRAGE DES PROJETS */
-
+    /* ---------------------------------------------------------
+       2. CHARGEMENT ET FILTRAGE DES PROJETS
+    --------------------------------------------------------- */
     const container = document.getElementById('projects-container');
     const filterBtns = document.querySelectorAll('.filter-btn');
-    let allProjects = []; // Variable pour stocker les projets
+    const modal = document.getElementById("python-modal"); // On récupère la modale ici
+    let allProjects = []; 
 
     // Fonction pour afficher les cartes
     const renderProjects = (projects) => {
-        container.innerHTML = ''; // On vide la grille avant de remplir
+        container.innerHTML = ''; 
         
         if(projects.length === 0) {
             container.innerHTML = '<p style="text-align:center; width:100%;">Aucun projet dans cette catégorie.</p>';
@@ -41,19 +43,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         projects.forEach(project => {
-            // Génération des badges (tags)
+            // Badges
             const tagsHtml = project.tags.map(tag => 
                 `<span class="tech-tag">${tag}</span>`
             ).join('');
 
-            // Génération des liens
+            // Liens (C'est ici qu'on modifie la logique !)
             const linksHtml = project.links.map((link, index) => {
-                let html = `<a href="${link.url}" target="_blank">${link.text}</a>`;
+                let html;
+                
+                // SI c'est le lien spécial vers la démo Python
+                if (link.url === '#python-demo') {
+                    html = `<a href="#" class="open-python-modal" style="color: #4ade80; font-weight:bold;">${link.text}</a>`;
+                } 
+                // SINON c'est un lien normal
+                else {
+                    html = `<a href="${link.url}" target="_blank">${link.text}</a>`;
+                }
+
                 if (index < project.links.length - 1) html += `<div class="separator"></div>`;
                 return html;
             }).join('');
 
-            // Création de la carte HTML
             const card = `
                 <div class="project-card reveal visible">
                     <div class="project-header">
@@ -71,37 +82,26 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    // Chargement initial des données (Correction: project.json au singulier)
+    // --- NOUVEAU : Écouteur d'événement pour les boutons générés dynamiquement ---
+    // On utilise la "délégation d'événement" car les boutons n'existent pas au chargement de la page
+    container.addEventListener('click', (e) => {
+        if (e.target.classList.contains('open-python-modal')) {
+            e.preventDefault(); // Empêche le lien de remonter en haut de page
+            if(modal) modal.style.display = "block"; // Ouvre la popup
+        }
+    });
+
+    // Chargement initial des données
     fetch('project.json')
         .then(res => {
             if (!res.ok) throw new Error("Impossible de charger le fichier JSON");
             return res.json();
         })
         .then(data => {
-            allProjects = data; // Sauvegarde globale
-            renderProjects(allProjects); // Affichage initial (Tous)
+            allProjects = data;
+            renderProjects(allProjects);
         })
         .catch(err => console.error("Erreur JSON:", err));
-
-    // Gestion des clics sur les filtres
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Gestion visuelle du bouton actif
-            document.querySelector('.filter-btn.active').classList.remove('active');
-            btn.classList.add('active');
-
-            // Filtrage logique
-            const filterValue = btn.getAttribute('data-filter');
-            
-            if (filterValue === 'all') {
-                renderProjects(allProjects);
-            } else {
-                const filtered = allProjects.filter(p => p.category === filterValue);
-                renderProjects(filtered);
-            }
-        });
-    });
-
     /* ---------------------------------------------------------
        3. FORMULAIRE DE CONTACT (Envoi Discord)
     --------------------------------------------------------- */
@@ -167,3 +167,38 @@ document.addEventListener("DOMContentLoaded", () => {
     revealElements.forEach(el => observer.observe(el));
     
 });
+/* ---------------------------------------------------------
+       5. MODAL PYTHON DEMO
+    --------------------------------------------------------- */
+    const modal = document.getElementById("python-modal");
+    const btn = document.getElementById("python-btn");
+    const span = document.getElementsByClassName("close-modal")[0];
+
+    // Ouvrir la modal
+    if (btn) {
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+    }
+
+    // Fermer avec la croix
+    if (span) {
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    }
+
+    // Fermer en cliquant en dehors
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+/* ---------------------------------------------------------
+       6. NAVIGATION MOBILE
+    --------------------------------------------------------- */
+    const mobileNavBtn = document.getElementById('mobile-nav-toggle');
+    const mobileNav = document.getElementById('mobile-nav');        
+    mobileNavBtn.addEventListener('click', () => {
+        mobileNav.classList.toggle('open');
+    });         
