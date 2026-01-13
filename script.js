@@ -1,40 +1,74 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    /* 
-       1. Dark Mode */
+    /* =========================================
+       1. GESTION DU MODE SOMBRE / CLAIR
+    ========================================= */
     const themeBtn = document.getElementById('theme-toggle');
     const body = document.body;
 
-    // Vérifier si l'utilisateur a déjà choisi un thème
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
         body.classList.add('light-mode');
         themeBtn.textContent = '🌙'; 
     }
 
-    // Basculer le thème au clic
-    themeBtn.addEventListener('click', () => {
-        body.classList.toggle('light-mode');
-        
-        if (body.classList.contains('light-mode')) {
-            themeBtn.textContent = '🌙';
-            localStorage.setItem('theme', 'light'); 
-        } else {
-            themeBtn.textContent = '☀️';
-            localStorage.setItem('theme', 'dark');
-        }
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                themeBtn.textContent = '🌙';
+                localStorage.setItem('theme', 'light'); 
+            } else {
+                themeBtn.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    }
+
+    /* =========================================
+       2. GESTION DES MODALES (Pop-ups)
+    ========================================= */
+    // Récupération des éléments
+    const modalMDP = document.getElementById("python-modal");       // Modale Générateur MDP
+    const modalBreakout = document.getElementById("breakout-modal"); // Modale Casse-Briques
+    const btnBreakout = document.getElementById("breakout-btn");     // Bouton flottant
+    const closeBtns = document.querySelectorAll('.close-modal');     // Les croix de fermeture
+
+    // Fonction pour fermer toutes les modales
+    const closeAllModals = () => {
+        if(modalMDP) modalMDP.style.display = "none";
+        if(modalBreakout) modalBreakout.style.display = "none";
+    };
+
+    // Gestion du clic sur les croix (x)
+    closeBtns.forEach(btn => {
+        btn.onclick = closeAllModals;
     });
 
-    /* ---------------------------------------------------------
-       2. CHARGEMENT ET FILTRAGE DES PROJETS
-    --------------------------------------------------------- */
+    // Fermer en cliquant en dehors de la fenêtre
+    window.onclick = function(event) {
+        if (event.target == modalMDP || event.target == modalBreakout) {
+            closeAllModals();
+        }
+    };
+
+    // Ouvrir le Casse-Briques (Bouton flottant)
+    if(btnBreakout && modalBreakout) {
+        btnBreakout.onclick = function() {
+            modalBreakout.style.display = "block";
+        }
+    }
+
+    /* =========================================
+       3. CHARGEMENT ET FILTRAGE DES PROJETS
+    ========================================= */
     const container = document.getElementById('projects-container');
     const filterBtns = document.querySelectorAll('.filter-btn');
-    const modal = document.getElementById("python-modal"); // On récupère la modale ici
     let allProjects = []; 
 
-    // Fonction pour afficher les cartes
     const renderProjects = (projects) => {
+        if (!container) return;
         container.innerHTML = ''; 
         
         if(projects.length === 0) {
@@ -43,20 +77,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         projects.forEach(project => {
-            // Badges
             const tagsHtml = project.tags.map(tag => 
                 `<span class="tech-tag">${tag}</span>`
             ).join('');
 
-            // Liens (C'est ici qu'on modifie la logique !)
             const linksHtml = project.links.map((link, index) => {
                 let html;
                 
-                // SI c'est le lien spécial vers la démo Python
+                // DÉTECTION DU LIEN SPÉCIAL POUR LE PROJET PYTHON
                 if (link.url === '#python-demo') {
+                    // On ajoute une classe spécifique pour l'intercepter plus tard
                     html = `<a href="#" class="open-python-modal" style="color: #4ade80; font-weight:bold;">${link.text}</a>`;
                 } 
-                // SINON c'est un lien normal
                 else {
                     html = `<a href="${link.url}" target="_blank">${link.text}</a>`;
                 }
@@ -82,16 +114,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    // --- NOUVEAU : Écouteur d'événement pour les boutons générés dynamiquement ---
-    // On utilise la "délégation d'événement" car les boutons n'existent pas au chargement de la page
-    container.addEventListener('click', (e) => {
-        if (e.target.classList.contains('open-python-modal')) {
-            e.preventDefault(); // Empêche le lien de remonter en haut de page
-            if(modal) modal.style.display = "block"; // Ouvre la popup
-        }
-    });
+    // ÉCOUTEUR D'ÉVÉNEMENT POUR LE PROJET GÉNÉRATEUR MDP
+    if (container) {
+        container.addEventListener('click', (e) => {
+            if (e.target.classList.contains('open-python-modal')) {
+                e.preventDefault(); 
+                if(modalMDP) modalMDP.style.display = "block"; // Ouvre la modale MDP
+            }
+        });
+    }
 
-    // Chargement initial des données
+    // Chargement du JSON
     fetch('project.json')
         .then(res => {
             if (!res.ok) throw new Error("Impossible de charger le fichier JSON");
@@ -102,12 +135,29 @@ document.addEventListener("DOMContentLoaded", () => {
             renderProjects(allProjects);
         })
         .catch(err => console.error("Erreur JSON:", err));
-    /* ---------------------------------------------------------
-       3. FORMULAIRE DE CONTACT (Envoi Discord)
-    --------------------------------------------------------- */
+
+    // Filtres
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelector('.filter-btn.active').classList.remove('active');
+            btn.classList.add('active');
+            const filterValue = btn.getAttribute('data-filter');
+            
+            if (filterValue === 'all') {
+                renderProjects(allProjects);
+            } else {
+                const filtered = allProjects.filter(p => p.category === filterValue);
+                renderProjects(filtered);
+            }
+        });
+    });
+
+    /* =========================================
+       4. FORMULAIRE DE CONTACT
+    ========================================= */
     const contactForm = document.getElementById('contactForm');
     
-    if (contactForm) { // Vérification de sécurité si le formulaire existe
+    if (contactForm) { 
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault(); 
             
@@ -141,64 +191,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.textContent = "Envoyer le message";
                 btn.disabled = false;
             });
-     
         });
-        
     }
-/* ---------------------------------------------------------
-       4. ANIMATIONS AU SCROLL (Intersection Observer)
-    --------------------------------------------------------- */
-    const observerOptions = {
-        threshold: 0.1 // L'animation se lance quand 10% de l'élément est visible
-    };
 
+    /* =========================================
+       5. ANIMATIONS SCROLL
+    ========================================= */
+    const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Optionnel : on arrête d'observer une fois apparu (pour ne pas rejouer l'animation)
                 observer.unobserve(entry.target); 
             }
         });
     }, observerOptions);
 
-    // On cible tous les éléments qui ont la classe "reveal"
     const revealElements = document.querySelectorAll('.reveal');
     revealElements.forEach(el => observer.observe(el));
     
-});
-/* ---------------------------------------------------------
-       5. MODAL PYTHON DEMO
-    --------------------------------------------------------- */
-    const modal = document.getElementById("python-modal");
-    const btn = document.getElementById("python-btn");
-    const span = document.getElementsByClassName("close-modal")[0];
-
-    // Ouvrir la modal
-    if (btn) {
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-    }
-
-    // Fermer avec la croix
-    if (span) {
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-    }
-
-    // Fermer en cliquant en dehors
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    };
-/* ---------------------------------------------------------
+    /* =========================================
        6. NAVIGATION MOBILE
-    --------------------------------------------------------- */
+    ========================================= */
     const mobileNavBtn = document.getElementById('mobile-nav-toggle');
     const mobileNav = document.getElementById('mobile-nav');        
-    mobileNavBtn.addEventListener('click', () => {
-        mobileNav.classList.toggle('open');
-    });         
+    if (mobileNavBtn && mobileNav) {
+        mobileNavBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('open');
+        });
+    }
+});
